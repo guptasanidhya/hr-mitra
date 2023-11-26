@@ -6,58 +6,74 @@
         </div>
         </div>
 <%= link_to "create new Employee", new_employee_path,class:'btn btn-primary btn-lg'%>
-<table class="table table-bordered mt-4 mb-5">
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Action</th>
-<!--            <th>City</th>
-            <th>State</th>
-            <th>Country</th>
-            <th>Pincode</th>
-            <th>Address</th>
--->
-        </tr>
-        </thead>
-        <tbody>
-            <%@employees.each do |employee|%>
-        <tr>
-        <td><%=employee.name%></td>
-        <td><%=employee.personal_email%></td>
-        <td>
 
-        <div class="dropdown">
+<div class="dropdown mt-2">
   <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-   Actions
+  View List In
   </button>
   <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
     <!--if you want to add dropdown use this -->
-    <li><%= link_to "Edit", edit_employee_path(employee), class:"dropdown-item"%></li>
-    <li><%= link_to "View", employee_path(employee), class:"dropdown-item"%></li>
-    <li><%= link_to "Delete", employee_path(employee), class:"dropdown-item", method: :delete, data:{confirm: 'Are you sure to delete this employee?'}%></li>
+    <li><%= link_to "Table", employees_path(view_type: "table"), class:"dropdown-item"%></li>
+    <li><%= link_to "Accordian", employees_path(view_type: "accordian"), class:"dropdown-item"%></li>
   </ul>
 </div>
 
-     <!--if you want to add buttons try this     
-         <%#= link_to "Edit", edit_employee_path(employee), class:"btn btn-primary"%>
-         <%#= link_to "View", employee_path(employee), class:"btn btn-info"%>
-         <%#= link_to "Delete", employee_path(employee), class:"btn btn-danger", method: :delete, data:{confirm: 'Are you sure to delete this employee?'}%>
+<%if params[:view_type] != 'accordian'%>
+    <table class="table table-bordered mt-4 mb-5">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Action</th>
+    <!--            <th>City</th>
+                <th>State</th>
+                <th>Country</th>
+                <th>Pincode</th>
+                <th>Address</th>
+    -->
+            </tr>
+            </thead>
+            <tbody>
+                <%@employees.each do |employee|%>
+            <tr>
+            <td><%=employee.name%></td>
+            <td><%=employee.personal_email%></td>
+            <td>
 
--->         
-        </td>
-<!--     <td><%#=employee.city%></td>
-        <td><%#=employee.state%></td>
-        <td><%#=employee.country%></td>
-        <td><%#z=employee.pincode%></td>
-        <td><%#=employee.address%></td>
-        
--->
-        </tr>
-        <%end%>
-        </tbody>
-        </table>
+            <div class="dropdown">
+    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+    Actions
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+        <!--if you want to add dropdown use this -->
+        <li><%= link_to "Edit", edit_employee_path(employee), class:"dropdown-item"%></li>
+        <li><%= link_to "View", employee_path(employee), class:"dropdown-item"%></li>
+        <li><%= link_to "Delete", employee_path(employee), class:"dropdown-item", method: :delete, data:{confirm: 'Are you sure to delete this employee?'}%></li>
+    </ul>
+    </div>
+
+        <!--if you want to add buttons try this     
+            <%#= link_to "Edit", edit_employee_path(employee), class:"btn btn-primary"%>
+            <%#= link_to "View", employee_path(employee), class:"btn btn-info"%>
+            <%#= link_to "Delete", employee_path(employee), class:"btn btn-danger", method: :delete, data:{confirm: 'Are you sure to delete this employee?'}%>
+
+    -->         
+            </td>
+    <!--     <td><%#=employee.city%></td>
+            <td><%#=employee.state%></td>
+            <td><%#=employee.country%></td>
+            <td><%#z=employee.pincode%></td>
+            <td><%#=employee.address%></td>
+            
+    -->
+            </tr>
+            <%end%>
+            </tbody>
+    </table>
+<%end%>
+
 <!--##################################################################################### -->
+<%if params[:view_type].present? && params[:view_type]=='accordian'%>
     <div class="accordion" id="accordionExample">
         <%@employees.each_with_index do |employee,index|%>
             <div class="accordion-item">
@@ -99,4 +115,5 @@
             </div>
         <%end%>
     </div>
+<%end%>
 </div>
