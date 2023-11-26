@@ -7,29 +7,20 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
-        </li>
         <%if user_signed_in? %>
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <a class="nav-link active dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Settings
             </a>
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" href="javascript:void(0)">Signed in as <%=current_user.email%></a></li>
-              <li><%= link_to 'Sign Out', destroy_user_session_path,class:'dropdown-item'%></li>
+              <li><%= link_to 'Sign Out', destroy_user_session_path,class:'dropdown-item',method: :delete, data: {confirm: 'If you logout, your current session will be destroyed. Are you sure you want to logout?'} %></li>
             </ul>
           </li>
         <%else%>
         <li class="nav-item">
           <%= link_to "Sign In", new_user_session_path,class:"nav-link active"%>
         <%end%>
-        <li class="nav-item">
-          <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-        </li>
       </ul>
       <form class="d-flex" role="search">
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
